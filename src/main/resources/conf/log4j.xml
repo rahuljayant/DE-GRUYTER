@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>			
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="true"
+	xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	
+	<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="./log/DE-GRUYTER.log" />
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<param name="Threshold" value="INFO" />
+		<param name="append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] %d{yy/MM/dd HH:mm:ss} [%t] %c{3}.%M: %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelMatchFilter">
+			<param name="LevelToMatch" value="info" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+		<filter class="org.apache.log4j.varia.DenyAllFilter" />
+	</appender>
+	
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="datePattern" value="'.'yyyy-MM" />
+		<param name="Threshold" value="INFO" />
+		<param name="append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%p] %d{yy/MM/dd HH:mm:ss} [%t] %c{3}.%M: %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelMatchFilter">
+			<param name="LevelToMatch" value="info" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+		<filter class="org.apache.log4j.varia.DenyAllFilter" />
+	</appender>
+
+	<root>
+		<priority value="info" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="console" />
+	</root>
+</log4j:configuration>			

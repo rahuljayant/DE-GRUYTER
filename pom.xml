@@ -1,0 +1,225 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>DE-GRUYTER</groupId>
+	<artifactId>DE-GRUYTER</artifactId>
+	<version>0.0.1</version>
+	<properties>
+		<jdk.version>1.8</jdk.version>
+		<poi.version>3.14</poi.version>
+		<guice.version>3.0</guice.version>
+		<junit.version>4.11</junit.version>
+		<log4j.version>1.2.17</log4j.version>
+		<ashot.version>1.5.2</ashot.version>
+		<velocity.version>1.4</velocity.version>
+		<jodatime.version>2.5</jodatime.version>
+		<testng.version>6.9.13.6</testng.version>
+		<selenium.version>2.53.1</selenium.version>
+		<reportng.version>1.1.4</reportng.version>
+		<extentreports.version>2.41.2</extentreports.version>
+	</properties>
+	<dependencies>
+		<!-- Selenium -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+		</dependency>
+
+		<!-- TestNG -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- <dependency>
+			<groupid>com.aventstack</groupid>
+			<artifactid>extentreports</artifactid>
+			<version>${extentreports.version}</version>			
+		</dependency> -->
+		
+		<dependency>
+			<groupId>com.relevantcodes</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>${extentreports.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<!-- Excel jars -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${jodatime.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- Mail Service -->
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<!-- ReportNG -->
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity-dep</artifactId>
+			<version>${velocity.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>${guice.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.uncommons</groupId>
+			<artifactId>reportng</artifactId>
+			<version>${reportng.version}</version>
+		</dependency>
+
+		<!-- FullPage ScreenShot -->
+		<dependency>
+			<groupId>ru.yandex.qatools.ashot</groupId>
+			<artifactId>ashot</artifactId>
+			<version>${ashot.version}</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<plugins>
+			<!-- download source code in Eclipse, best practice -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<!-- Make this jar executable -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<excludes>
+						<exclude>/conf/log4j.xml</exclude>
+					</excludes>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>${fully.qualified.main.class}</mainClass>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<properties>
+						<!-- Setting ReportNG listeners -->
+						<property>
+							<name>usedefaultlisteners</name>
+							<value>true</value>
+						</property>
+						<property>
+							<name>listener</name>
+							<value>org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter</value>
+						</property>
+					</properties>
+					<suiteXmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<!-- exclude junit, we need runtime dependency only -->
+							<includeScope>runtime</includeScope>
+							<!-- <outputDirectory>${project.build.directory}/lib</outputDirectory> -->
+							<outputDirectory>${basedir}/lib</outputDirectory>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<organization>
+		<name>MPS Limited</name>
+		<url>http://www.adi-mps.com/solutions/mps-technologies/</url>
+	</organization>
+</project>
